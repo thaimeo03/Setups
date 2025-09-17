@@ -1,0 +1,68 @@
+Lỗi này xảy ra khi hệ điều hành (hoặc Gradle / VS Code / terminal) không tìm thấy biến môi trường JAVA_HOME, tức là Java đã được cài, nhưng chưa được cấu hình đúng.
+
+✅ Cách khắc phục lỗi JAVA_HOME not found trên Windows
+📌 Bước 1: Xác định thư mục cài đặt JDK
+Mở File Explorer, đi đến thư mục:
+
+makefile
+Copy
+Edit
+C:\Program Files\Java\
+Bạn sẽ thấy các folder như:
+
+Copy
+Edit
+jdk-17.0.9
+jdk-21
+jre1.8.0_281
+Giả sử bạn muốn dùng:
+
+makefile
+Copy
+Edit
+C:\Program Files\Java\jdk-17.0.9
+📌 Bước 2: Thêm biến môi trường JAVA_HOME
+🔧 Cách làm:
+Mở Start Menu → tìm: Environment Variables
+
+Chọn: "Edit the system environment variables"
+
+Nhấn nút: Environment Variables...
+
+Ở phần System variables, bấm New:
+
+Name: JAVA_HOME
+
+Value: C:\Program Files\Java\jdk-17.0.9 (hoặc theo đường dẫn máy bạn)
+
+Bấm OK.
+
+📌 Bước 3: Thêm %JAVA_HOME%\bin vào PATH
+Trong cùng cửa sổ "Environment Variables", tìm biến Path ở phần System variables
+
+Chọn → nhấn Edit
+
+Bấm New, thêm dòng:
+
+bash
+Copy
+Edit
+%JAVA_HOME%\bin
+Bấm OK hết để lưu và đóng.
+
+📌 Bước 4: Mở lại terminal / VS Code → Kiểm tra
+bash
+Copy
+Edit
+java -version
+javac -version
+echo %JAVA_HOME%
+✅ Sau khi thiết lập JAVA_HOME đúng:
+
+VS Code và Gradle sẽ nhận ra JDK.
+
+Lỗi JAVA_HOME not found sẽ không còn nữa.
+
+📣 Nếu bạn vẫn gặp lỗi, gửi mình đường dẫn JDK bạn đang cài hoặc mình có thể viết script .bat tự động cấu hình cho bạn luôn.
+
+Bạn đã xác định được JDK version muốn dùng chưa? (Java 17 hoặc Java 21 là tốt nhất cho Spring Boot hiện tại).

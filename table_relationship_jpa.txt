@@ -1,0 +1,118 @@
+🔗 1. @OneToOne – Quan hệ 1-1
+Ví dụ: Một User có một Profile
+java
+Copy
+Edit
+@Entity
+public class User {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    private Profile profile;
+}
+java
+Copy
+Edit
+@Entity
+public class Profile {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String bio;
+}
+✅ Giải thích:
+@OneToOne: Một user có một profile
+
+@JoinColumn: Tạo khóa ngoại profile_id trong bảng user
+
+🔁 2. @OneToMany và @ManyToOne – Quan hệ 1-N
+Ví dụ: Một Department có nhiều Employee
+java
+Copy
+Edit
+@Entity
+public class Department {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    private List<Employee> employees;
+}
+java
+Copy
+Edit
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+}
+✅ Giải thích:
+@OneToMany: Một phòng ban có nhiều nhân viên
+
+mappedBy: Là tên field trong class Employee trỏ ngược lại
+
+@ManyToOne: Mỗi employee thuộc một phòng ban
+
+@JoinColumn: Tạo cột department_id trong bảng employee
+
+🔗 3. @ManyToMany – Quan hệ N-N
+Ví dụ: Một Student học nhiều Course và một Course có nhiều Student
+java
+Copy
+Edit
+@Entity
+public class Student {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+
+    @ManyToMany
+    @JoinTable(
+        name = "student_course",
+        joinColumns = @JoinColumn(name = "student_id"),
+        inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> courses;
+}
+java
+Copy
+Edit
+@Entity
+public class Course {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String title;
+
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students;
+}
+✅ Giải thích:
+@ManyToMany: Nhiều student – nhiều course
+
+@JoinTable: Bảng trung gian student_course với 2 khóa ngoại
+
+mappedBy: Chỉ ra mối quan hệ được ánh xạ từ bên kia
+
+📌 Tổng kết nhanh
+Quan hệ	Annotation	Vị trí FK
+One-to-One	@OneToOne	Trong một trong hai bảng
+One-to-Many	@OneToMany + @ManyToOne	Trong bảng "many"
+Many-to-Many	@ManyToMany	Tạo bảng phụ trung gian

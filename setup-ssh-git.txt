@@ -1,0 +1,127 @@
+Chào Cancer! Để setup **SSH key cho Git** với **nhiều tài khoản GitHub/GitLab** trên cùng một máy, bạn cần làm theo từng bước sau. Mình sẽ giải thích chi tiết và dễ hiểu nhất nhé.
+
+---
+
+## 🧩 Mục tiêu:
+
+* Tạo nhiều SSH key cho từng tài khoản Git (GitHub, GitLab, etc).
+* Cấu hình Git để sử dụng đúng key với đúng account.
+* Quản lý qua file cấu hình SSH (`~/.ssh/config`).
+
+---
+
+## 🛠️ Bước 1: Tạo SSH key cho từng tài khoản
+
+Giả sử bạn có 2 tài khoản GitHub:
+
+* **Personal**: `yourname@gmail.com`
+* **Work**: `yourname@company.com`
+
+Chạy các lệnh sau trong Terminal:
+
+```bash
+# Personal
+ssh-keygen -t ed25519 -C "yourname@gmail.com" -f ~/.ssh/id_ed25519_personal
+
+# Work
+ssh-keygen -t ed25519 -C "yourname@company.com" -f ~/.ssh/id_ed25519_work
+```
+
+> 📌 Nhớ chọn **passphrase** nếu cần thêm bảo mật.
+
+---
+
+## 📂 Bước 2: Thêm SSH key vào ssh-agent
+
+```bash
+# Start ssh-agent
+eval "$(ssh-agent -s)"
+
+# Add personal key
+ssh-add ~/.ssh/id_ed25519_personal
+
+# Add work key
+ssh-add ~/.ssh/id_ed25519_work
+```
+
+---
+
+## 🔐 Bước 3: Thêm public key lên GitHub/GitLab
+
+Lấy nội dung public key:
+
+```bash
+cat ~/.ssh/id_ed25519_personal.pub
+cat ~/.ssh/id_ed25519_work.pub
+```
+
+Sau đó:
+
+* Truy cập GitHub/GitLab → Settings → SSH Keys → Add New Key.
+* Dán nội dung vào tương ứng với từng tài khoản.
+
+---
+
+## 🧾 Bước 4: Cấu hình file `~/.ssh/config`
+
+Mở file cấu hình:
+
+```bash
+nano ~/.ssh/config
+```
+
+Thêm nội dung như sau:
+
+```ssh
+# Personal GitHub
+Host github-personal
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_personal
+
+# Work GitHub
+Host github-work
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_work
+```
+
+---
+
+## 📁 Bước 5: Clone repo với alias `Host`
+
+```bash
+# Clone repo personal
+git clone git@github-personal:your-username/repo.git
+
+# Clone repo work
+git clone git@github-work:company-org/repo.git
+```
+
+> 🧠 Bạn phải dùng `github-personal` hoặc `github-work` đúng với `Host` đã đặt trong config.
+
+---
+
+## 🧑‍💻 Bước 6: Cấu hình Git identity cho từng repo
+
+```bash
+# Trong repo personal
+git config user.name "Your Personal Name"
+git config user.email "yourname@gmail.com"
+
+# Trong repo work
+git config user.name "Your Work Name"
+git config user.email "yourname@company.com"
+```
+
+---
+
+## ✅ Kết quả
+
+Bạn có thể push/pull với **2 account Git khác nhau** mà không bị conflict key, không cần logout/login.
+
+---
+
+Nếu bạn cần cấu hình với **GitLab**, chỉ việc thay `HostName github.com` thành `gitlab.com` trong file config là được nhé.
+
+Cần mình tạo 1 script để setup nhanh tất cả không? Mình có thể code bash cho bạn luôn.
