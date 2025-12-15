@@ -1,4 +1,5 @@
 1. Core & Web (gần như bắt buộc)
+
 | Thư viện                         | Use case              | Ghi chú                        |
 | -------------------------------- | --------------------- | ------------------------------ |
 | `spring-boot-starter-web`        | REST API              | MVC, Jackson, validation       |
@@ -6,6 +7,7 @@
 | `spring-boot-starter-actuator`   | Health check, metrics | Bắt buộc khi deploy production |
 
 2. Data & Persistence (rất quan trọng)
+
 | Thư viện                           | Use case     | Ghi chú                |
 | ---------------------------------- | ------------ | ---------------------- |
 | `spring-boot-starter-data-jpa`     | ORM          | Hibernate + JPA        |
@@ -15,6 +17,7 @@
 | `liquibase-core`                   | DB migration | Alternative của Flyway |
 
 3. Security & Auth (enterprise standard)
+
 | Thư viện                                 | Use case       | Ghi chú                     |
 | ---------------------------------------- | -------------- | --------------------------- |
 | `spring-boot-starter-security`           | Authentication | Base security               |
@@ -23,6 +26,7 @@
 | `jjwt` / `nimbus-jose-jwt`               | JWT utils      | Thường dùng cho custom auth |
 
 4. Logging & Observability
+
 | Thư viện                         | Use case       | Ghi chú          |
 | -------------------------------- | -------------- | ---------------- |
 | `spring-boot-starter-logging`    | Logging        | Logback mặc định |
@@ -31,12 +35,14 @@
 | `spring-boot-starter-aop`        | Logging, audit | Aspect-based     |
 
 5. API Documentation & Contract
+
 | Thư viện                               | Use case | Ghi chú             |
 | -------------------------------------- | -------- | ------------------- |
 | `springdoc-openapi-starter-webmvc-ui`  | Swagger  | Chuẩn thay Swagger2 |
 | `springdoc-openapi-starter-webmvc-api` | OpenAPI  | Generate spec       |
 
 6. Mapper & Boilerplate killer
+
 | Thư viện                  | Use case         | Ghi chú          |
 | ------------------------- | ---------------- | ---------------- |
 | `mapstruct`               | DTO ↔ Entity     | Nhanh, type-safe |
@@ -44,6 +50,7 @@
 | `jackson-datatype-jsr310` | DateTime         | Java Time API    |
 
 7. Testing
+
 | Thư viện                   | Use case              | Ghi chú       |
 | -------------------------- | --------------------- | ------------- |
 | `spring-boot-starter-test` | Unit/Integration test | JUnit 5       |
@@ -52,6 +59,7 @@
 | `rest-assured`             | Test API              | Clean, dễ đọc |
 
 8. Async, Messaging, Cache
+
 | Thư viện                         | Use case | Ghi chú           |
 | -------------------------------- | -------- | ----------------- |
 | `spring-boot-starter-cache`      | Cache    | Redis, Caffeine   |
@@ -61,6 +69,7 @@
 | `spring-boot-starter-webflux`    | Reactive | Khi cần scale lớn |
 
 9. Utility & Productivity
+
 | Thư viện                      | Use case         | Ghi chú              |
 | ----------------------------- | ---------------- | -------------------- |
 | `apache-commons-lang3`        | Utils            | String, Date, Object |
